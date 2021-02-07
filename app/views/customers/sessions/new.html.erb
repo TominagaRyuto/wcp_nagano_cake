@@ -1,29 +1,29 @@
-<h2>ログイン</h2>
-<h5>会員の方はこちらからログイン</h5>
+<h1>ログイン</h1>
+<h2>会員の方はこちらからログイン</h2>
 
 <%= form_with model: @customer, url: customer_session_path, local: true do |f| %>
-  <div class="field">
+  <div class="form-group">
     <%= f.label 'メールアドレス' %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label 'パスワード' %>
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
+    <div class="form-group">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
   <% end %>
 
-  <div class="actions">
+  <div class="form-group">
     <%= f.submit "ログイン", class:"btn btn-primary" %>
   </div>
 <% end %>
 
-<h5>会員登録がお済でない方</h5>
+<h2>会員登録がお済でない方</h2>
 <%= link_to "こちら", new_customer_registration_path %>
 <span>から新規登録を行って下さい。</span>

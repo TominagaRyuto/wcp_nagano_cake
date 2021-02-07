@@ -1,73 +1,49 @@
-<h2>新規会員登録</h2>
+<h1>新規会員登録</h1>
+<%= render "customers/shared/error_messages", resource: resource %>
+<%= form_with model: @customer, url: customer_registration_path, id: 'new_customer', class: 'new_customer', local: true do |f| %>
+  <div class="form-group">
+    <label for="last_name">名前</label>
+    <label for="last_name">（姓）</label>
+    <%= f.text_field :last_name, autofocus: true, id:"last_name" %>
+  </div>
+  <div class="form-group">
+    <label for="first_name">（名）</label>
+    <%= f.text_field :first_name, id:"first_name" %>
+  </div>
+  <div class="form-group">
+    <label for="last_name_kana">フリガナ</label>
+    <label for="last_name_kana">（セイ）</label>
+    <%= f.text_field :last_name_kana, id:"last_name_kana" %>
+  </div>
+  <div class="form-group">
+    <label for="first_name_kana">（メイ）</label>
+    <%= f.text_field :first_name_kana, id:"first_name_kana" %>
+  </div>
 
-    <%= form_with model: @customer, url: customer_registration_path, id: 'new_customer', class: 'new_customer', local: true do |f| %>
-      <%= render "customers/shared/error_messages", resource: resource %>
-      <table>
-        <tr>
-        <th class="w-25"></th><th class="w-25"></th><th class="w-25"></th>
-        </tr>
+  <div class="form-group">
+    <label for="email">メールアドレス</label>
+    <%= f.email_field :email, autocomplete: "email", id:"email" %>
+  </div>
+  <div class="form-group">
+    <lavel for="telephone_number">電話番号（ハイフン無し）</lavel>
+    <%= f.text_field :telephone_number, id:"telephone_number" %>
+  </div>
 
-        <tr>
-          <td>
-            <label for="last_name">名前</label>
-          </td>
-          <td>
-            <label for="last_name">（姓）</label>
-            <%= f.text_field :last_name, autofocus: true, id:"last_name" %>
-          </td>
-          <td>
-            <label for="first_name">（名）</label>
-            <%= f.text_field :first_name, id:"first_name" %>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <label for="last_name_kana">フリガナ</label>
-          </td>
-          <td>
-            <label for="last_name_kana">（セイ）</label>
-            <%= f.text_field :last_name_kana, id:"last_name_kana" %>
-          </td>
-          <td>
-            <label for="first_name_kana">（メイ）</label>
-            <%= f.text_field :first_name_kana, id:"first_name_kana" %>
-          </td>
-        </tr>
-
-        <tr>
-          <td><label for="email">メールアドレス</label></td>
-          <td><%= f.email_field :email, autocomplete: "email", id:"email" %></td>
-        </tr>
-
-        <tr>
-          <td>
-            <lavel for="telephone_number">電話番号（ハイフン無し）</lavel>
-          </td>
-          <td>
-            <%= f.text_field :telephone_number, id:"telephone_number" %>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <label for="pw">パスワード</label>
-            <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> 文字以上)</em>
-            <% end %>
-          </td>
-          <td><%= f.password_field :password, autocomplete: "new-password", id:"pw" %></td>
-        </tr>
-
-        <tr>
-          <td><label for="pw?">パスワード（確認用）</label></td>
-          <td><%= f.password_field :password_confirmation, autocomplete: "new-password", id:"pw?" %></td>
-        </tr>
-      </table>
-      <div class="mx-auto">
-        <%= f.submit "新規登録", class:"btn btn-success" %>
-      </div>
+  <div class="form-group">
+    <label for="pw">パスワード</label>
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> 文字以上)</em>
     <% end %>
+    <%= f.password_field :password, autocomplete: "new-password", id:"pw" %>
+  </div>
+  <div class="form-group">
+    <label for="pw?">パスワード（確認用）</label>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", id:"pw?" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "新規登録", class:"btn btn-success" %>
+  </div>
+<% end %>
 
 <h5>既に登録済みの方</h5>
 <%= link_to 'こちら', new_customer_session_path %>
