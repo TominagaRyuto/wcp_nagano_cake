@@ -1,19 +1,26 @@
-<h1>商品⼀覧</h1>
-<table>
-  <tr>
-    <th>商品ID</th>
-    <th>商品名</th>
-    <th>税抜価格</th>
-    <th>ジャンル</th>
-  </tr>
+<div class="container">
+  <div class="d-flex">
+    <h1 class="w-25 text-center bg-light m-5">商品⼀覧</h1>
+    <%= link_to "+", new_admin_item_path, class:"btn btn-secondary rounded-circle p-0 btn-lg shadow-lg m-5 ml-auto", style:"width:2rem;height:2rem;" %>
+  </div>
+  <table class="table">
+    <thead>
+      <tr class="table-secondary">
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>税抜価格</th>
+        <th>ジャンル</th>
+      </tr>
+    </thead>
 
-  <% @items.each do |item| %>
-  <tr>
-    <td><%= item.id %></td>
-    <td><%= item.name %></td>
-    <td><%= item.price %></td>
-    <td><%= item.genre.name %></td>
-  </tr>
-  <% end %>
-  <%= paginate @items %>
-</table>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= item.id %></td>
+      <td><%= link_to item.name, admin_item_path(item.id) %></td>
+      <td><%= item.price %></td>
+      <td><%= item.genre.name %></td>
+    </tr>
+    <% end %>
+  </table>
+  <div><%= paginate @items %></div>
+</div>

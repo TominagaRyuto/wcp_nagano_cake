@@ -1,0 +1,67 @@
+<% if @order.errors.any? %>
+  <%= @order.errors.count %>件のエラーが発生しました
+  <% @order.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<div class="container p-5">
+  <h1 class="text-center w-50 bg-light">注文情報入力</h1>
+  <%= form_with model: @order, url:orders_confirm_path, local:true, method: :post do |f| %>
+    <h2>支払方法</h2>
+    <div class="form-group pl-5">
+      <div>
+        <%= f.radio_button :payment_method, 'クレジットカード' %>
+        <%= f.label :payment_method, :クレジットカード %>
+      </div>
+      <div>
+        <%= f.radio_button :payment_method, '銀行振込' %>
+        <%= f.label :payment_method, :銀行振込 %>
+      </div>
+    </div>
+
+    <h2>お届け先</h2>
+    <div class="pl-5">
+      <div class="form-group">
+        <%= f.radio_button :workflow, 1, {:checked => true}  %>
+        <%= f.label :workflow, :ご自身の住所 %><br>
+        <div class="pl-5">〒
+          <%= current_customer.postal_code+current_customer.address %><br>
+          <%= current_customer.last_name+current_customer.first_name %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.radio_button :workflow, 2%>
+        <%= f.label :workflow, :登録済み住所から選択 %><br>
+        <div class="pl-5">
+          <%= f.collection_select(:address_id, @addresses, :id, :full_address, prompt: "--選択してください--") %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.radio_button :workflow, 3%>
+        <%= f.label :workflow, :新しいお届け先 %><br>
+        <div class="pl-5">
+          <div class="form-inline form-group">
+            <%= f.label '郵便番号（ハイフン無し）'%>
+            <%= f.text_field :postal_code, placeholder:"0000000", class:"form-control" %>
+          </div>
+          <div class="form-inline form-group">
+            <%= f.label '住所　　　　　　　　　　'%>
+            <%= f.text_field :address, placeholder:"大阪府大阪市此花区梅香1-1-1", class:"form-control", size: "80x50" %>
+          </div>
+          <div class="form-inline form-group">
+            <%= f.label '宛名　　　　　　　　　　'%>
+            <%= f.text_field :name, placeholder:"山田太郎", class:"form-control" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group text-center">
+      <%= f.submit "確認画面へ進む", class:"btn btn-primary btn-lg" %>
+    </div>
+  <% end %>
+</div>
+</div>

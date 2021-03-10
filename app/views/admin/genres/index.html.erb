@@ -1,19 +1,29 @@
-<h1>ジャンル⼀覧・追加</h1>
-<%= form_with model:@genre, url:'/admin/genres', local:true do |f| %>
-  <%= f.label 'ジャンル名' %>
-  <%= f.text_field :name %>
-  <%= f.submit '新規登録' %>
+<% if @genre.errors.any? %>
+  <%= @genre.errors.count %>件のエラーが発生しました
+  <% @genre.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
 <% end %>
+<div class="container">
+  <h1 class="w-50 bg-light m-5 text-center">ジャンル⼀覧・追加</h1>
+  <div class="d-flex">
+  <%= form_with model:@genre, url:'/admin/genres', local:true do |f| %>
+    <%= f.label 'ジャンル名' %>
+    <%= f.text_field :name, placeholder:"ジャンル名", class:"m-5" %>
+    <%= f.submit '新規登録', class:"btn btn-success" %>
+  <% end %>
+  </div>
 
-<table>
-  <tr>
+  <table class="table w-25">
+    <tr class="table-secondary">
       <th>ジャンル</th>
       <th></th>
     </tr>
     <% @genres.each do |genre| %>
       <tr>
         <td><%= genre.name%></td>
-        <td><%= link_to "編集する", edit_admin_genre_path(genre.id) %></td>
+        <td><%= link_to "編集する", edit_admin_genre_path(genre.id), class:"btn btn-success" %></td>
       </tr>
-      <% end %>
-</table>
+    <% end %>
+  </table>
+</div>

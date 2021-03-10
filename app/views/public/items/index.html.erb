@@ -1,0 +1,18 @@
+<h1>
+  商品一覧
+  <small>（全<%=Item.count%>件）</small>
+</h1>
+
+<div class="mx-auto d-flex flex-wrap">
+<% @items.each do |item| %>
+  <%= link_to item_path(item) do%>
+    <div class="px-4">
+      <%= attachment_image_tag item, :image, size: "250x150"  %>
+    </div>
+    <p class="px-4 text-dark"><%=item.name%></p>
+    <p class="px-4 text-dark">￥<%=(item.price*1.1).to_i%></p>
+  <% end %>
+
+<% end %>
+</div>
+<%= paginate @items %>

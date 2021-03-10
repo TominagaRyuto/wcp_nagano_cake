@@ -1,0 +1,59 @@
+<% if @customer.errors.any? %>
+  <%= @customer.errors.count %>件のエラーが発生しました
+  <% @customer.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<div class="container">
+  <h1 class="bg-light w-50 text-center m-5">
+    <%= @customer.last_name %>
+    <%= @customer.first_name %>
+    さんの会員情報編集
+  </h1>
+
+  <%= form_with model:@customer, url:"/admin/customers/#{@customer.id}", local:true do |f| %>
+    <div class="form-group">
+      <label>会員ID　　　　　　　　</label>
+      <%= @customer.id %>
+    </div>
+    <div class="form-group form-inline">
+      <label for="name">氏名　　　　　　　　　</label>
+      <%= f.text_field :last_name, id:'name', class:"form-control"%>
+      <%=f.text_field :first_name, class:"form-control"%>
+    </div>
+
+    <div class="form-group form-inline">
+      <label for="kana">フリガナ　　　　　　　</label>
+      <%= f.text_field :last_name_kana, id:'last_name_kana', class:"form-control"%>
+      <%= f.text_field :first_name_kana, class:"form-control"%>
+    </div>
+    <div class="form-group form-inline">
+      <label for="postal_code">郵便番号　　　　　　　</label>
+      <%= f.text_field :postal_code, id:'postal_code', class:"form-control"%>
+    </div>
+    <div class="form-group form-inline">
+      <label for="address">住所　　　　　　　　　</label>
+      <%= f.text_field :address, id:'address', class:"form-control"%>
+    </div>
+    <div class="form-group form-inline">
+      <label for="telephone_number">電話番号　　　　　　　</label>
+      <%= f.text_field :telephone_number, id:'telephone_number', class:"form-control"%>
+    </div>
+    <div class="form-group form-inline">
+      <label for="email">メールアドレス　　　　</label>
+      <%= f.text_field :email, id:'email', class:"form-control"%>
+    </div>
+    <div class="form-group form-inline">
+      <label>会員ステータス　　　　</label>
+      <%= f.radio_button :is_active, true %>
+      <%= f.label :is_active, '有効', value: true %>
+      <%= f.radio_button :is_active, false, class:"ml-4" %>
+      <%= f.label :is_active, '退会', value: false %>
+    </div>
+    <div class="form-group form-inline">
+      <div>　　　　　　　　　　　</div>
+      <%= f.submit "変更を保存", class:"btn btn-success btn-lg" %>
+    </div>
+  <% end %>
+</div>

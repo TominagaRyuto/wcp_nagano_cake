@@ -1,0 +1,68 @@
+<div class="container">
+  <h1 class="bg-light w-25 text-center m-5">注文履歴詳細</h1>
+  <table class="mb-5">
+    <tr>
+      <th>購入者　　　　　</th>
+      <td>
+        <%= link_to admin_customer_path(@order.customer) do %>
+          <%=@order.customer.last_name+@order.customer.first_name%>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>注文日　　　　　</th>
+      <td><%=@order.created_at.strftime("%Y/%m/%d")%></td>
+    </tr>
+    <tr>
+      <th>配送先　　　　　</th>
+      <td>
+        〒<%=(@order.postal_code).to_s.insert(3, "-")%>
+        <%=@order.address%><br>
+        <%=@order.name%>
+      </td>
+    </tr>
+    <tr>
+      <th>支払方法　　　　</th>
+      <td><%=@order.payment_method%></td>
+    </tr>
+  </table>
+  <div class="d-flex mb-1">
+    <table class="table table-borderless w-50 mr-5">
+      <thead>
+        <tr class="table-secondary">
+          <th>商品名</th>
+          <th>単価（税込）</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.order_details.each do |order_detail| %>
+          <tr>
+            <td><%=order_detail.item.name%></td>
+            <td><%=(order_detail.price*1.1).to_i%></td>
+            <td><%=order_detail.amount%></td>
+            <% subtotal = (order_detail.price*1.1*order_detail.amount).to_i %>
+            <td><%=subtotal%></td>
+            <% @sum = @sum.to_i+subtotal %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <table class="ml-5 mt-auto">
+      <tr>
+        <th>商品合計</th>
+        <td><%= @sum %>円</td>
+      </tr>
+      <tr>
+        <th>送料</th>
+        <td><%=@order.shipping_cost%>円</td>
+      </tr>
+      <tr>
+        <th>請求金額合計</th>
+        <td><%=(@sum + @order.shipping_cost) %>円</td>
+      </tr>
+    </table>
+  </div>
+</div>

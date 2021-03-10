@@ -1,29 +1,24 @@
-<h1>ログイン</h1>
-<h2>会員の方はこちらからログイン</h2>
+<h1 class="bg-light w-25 m-5">ログイン</h1>
+<h2 class="bg-light w-50 pl-2 m-5">会員の方はこちらからログイン</h2>
 
 <%= form_with model: @customer, url: customer_session_path, local: true do |f| %>
-  <div class="form-group">
-    <%= f.label 'メールアドレス' %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label 'パスワード' %>
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="form-group">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.submit "ログイン", class:"btn btn-primary" %>
-  </div>
+<div class="mx-auto d-flex align-items-center justify-content-center">
+  <table>
+    <tr>
+      <td><%= f.label 'メールアドレス　　　' %></td>
+      <td><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"sample@gmail.com", size:50 %></td>
+    </tr>
+    <tr>
+      <td><%= f.label 'パスワード' %></td>
+      <td><%= f.password_field :password, autocomplete: "current-password", size:50 %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit "　ログイン　", class:"btn btn-primary" %></td>
+    </tr>
+  </table>
+</div>
 <% end %>
 
-<h2>会員登録がお済でない方</h2>
-<%= link_to "こちら", new_customer_registration_path %>
-<span>から新規登録を行って下さい。</span>
+<h2 class="bg-light w-50 pl-2 ml-5 my-3">会員登録がお済でない方</h2>
+<p class="ml-5 pl-3"><%= link_to "こちら", new_customer_registration_path %>から新規登録を行って下さい。</p>

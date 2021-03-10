@@ -1,6 +1,7 @@
-<h1>商品詳細</h1>
-  <%= attachment_image_tag @item, :image, size: "300x200"  %>
-  <table>
+<h1 class="w-25 bg-light m-5 text-center">商品詳細</h1>
+<div class="container d-flex">
+  <div><%= attachment_image_tag @item, :image, size: "300x200"  %></div>
+  <table class="table table-borderless ml-5">
     <tr>
       <td>商品名</td>
       <td><%= @item.name %></td>
@@ -15,7 +16,8 @@
     </tr>
     <tr>
       <td>税込み価格<p>（税抜き価格）</p></td>
-      <td><%= tax %>(<%= @item.price %>)円</td>
+      <td><%= (@item.price*1.1).to_i %>(<%= @item.price %>)円</td>
     </tr>
-    <td><%= link_to "編集する", edit_admin_item_path(@item.id) %></td>
   </table>
+</div>
+<div class="text-center"><%= link_to "編集する", edit_admin_item_path(@item.id), class:"btn btn-success" %></div>

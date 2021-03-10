@@ -1,0 +1,21 @@
+<% if @cart_item.errors.any? %>
+  <%= @cart_item.errors.count %>件のエラーが発生しました
+  <% @cart_item.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+<div class="container px-5 px-sm-0">
+  <div class="row mt-5">
+    <div class="col-md-4"><%= attachment_image_tag @item, :image, size: "300x200"  %></div>
+    <div class="col-md-7 offset-md-1">
+    <h1><%=@item.name%></h1>
+    <p class="mb-5"><%=@item.introduction%></p>
+    <p>￥<%=(@item.price*1.1).to_i%><small>（税込）</small></p>
+    <%= form_with model: @cart_item, url:'/cart_items', local:true do |f| %>
+      <%= f.hidden_field :item_id, value: @item.id %>
+      <%= f.select :amount, options_for_select((1..20).to_a), include_blank: "個数選択", class:"form-control" %>
+      <%= f.submit "カートに入れる", class:"btn btn-success" %>
+    <% end %>
+    </div>
+  </div>
+</div>

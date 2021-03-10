@@ -1,0 +1,46 @@
+<% if @customer.errors.any? %>
+  <%= @customer.errors.count %>件のエラーが発生しました
+  <% @customer.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<div class="container">
+  <h1 class="bg-light w-50 text-center m-4">会員情報編集</h1>
+  <%= form_with model: @customer, url:customers_path, local:true do |f| %>
+    <table>
+      <tr>
+        <td>氏名</td>
+        <td><%= f.text_field :last_name, class:'form-control'%></td>
+        <td><%=f.text_field :first_name, class:'form-control'%></td>
+      </tr>
+      <tr>
+        <td>フリガナ</td>
+        <td><%= f.text_field :last_name_kana, class:'form-control'%></td>
+        <td><%= f.text_field :first_name_kana, class:'form-control'%></td>
+      </tr>
+      <tr>
+        <td>郵便番号</td>
+        <td><%= f.text_field :postal_code, class:'form-control'%></td>
+      </tr>
+      <tr>
+        <td>住所</td>
+        <td colspan="3"><%= f.text_field :address, class:'form-control', size:"70x10"%></td>
+      </tr>
+      <tr>
+        <td>電話番号</td>
+        <td><%= f.text_field :telephone_number, class:'form-control'%></td>
+      </tr>
+      <tr>
+        <td>メールアドレス</td>
+        <td><%= f.text_field :email, class:'form-control'%></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= f.submit "編集内容を保存", class:"btn btn-success btn-block" %>
+    <% end %>
+        <td></td>
+        <td><%= link_to "退会する", customers_confirm_path, "data-confirm" => "本当に退会しますか？", class:"btn btn-danger"%>
+      </tr>
+  </table>
+</div>
